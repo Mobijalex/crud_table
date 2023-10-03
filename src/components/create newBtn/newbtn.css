@@ -1,0 +1,10 @@
+.addBtn {
+  height: 35px;
+  padding: 5px;
+  color: white;
+  background-color: rgb(13, 110, 253);
+  border-color: white;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 10px 10px 14px -13px rgba(0, 0, 0, 0.75);
+}

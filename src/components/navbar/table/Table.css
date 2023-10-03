@@ -1,0 +1,36 @@
+.tableContainer {
+  margin-top: 20px;
+}
+
+.row {
+  border-collapse: collapse;
+  border-bottom: 1px solid black;
+}
+
+.col {
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileImg {
+  height: 50px;
+  width: 50px;
+}
+
+/* Style even rows */
+.tableRow:nth-child(even) {
+  background-color: lightgray; /* Change the background color for even rows */
+}
+
+/* Style odd rows */
+.tableRow:nth-child(odd) {
+  background-color: white; /* Change the background color for odd rows */
+}
+
+.row {
+  border-collapse: collapse;
+  border-bottom: white;
+}
