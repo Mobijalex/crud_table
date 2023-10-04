@@ -1,7 +1,7 @@
+import Table from "./components/table/Table";
 import "./App.css";
+import Filter from "./components/filter/Filter";
 import NavBar1 from "./components/navbar/NavBar1";
-import Filter from "./components/navbar/filter/Filter";
-import Table from "./components/navbar/table/Table";
 
 function App() {
   return (

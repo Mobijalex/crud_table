@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Container from "react-bootstrap/Container";
+
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "../table/Table.css";
+import "./Table.css";
+
+import Button from "react-bootstrap/Button";
 
 function Table() {
   const [demoValue, setDemoValue] = useState([]);
@@ -10,6 +12,7 @@ function Table() {
   // ---------Calling the fuction in useeffect for getting the data
 
   useEffect(() => {
+    // console.log("im worked");
     fetchData();
   }, []);
 
@@ -31,7 +34,7 @@ function Table() {
 
   return (
     <>
-      <Container className="tableContainer">
+      <div className="tableContainer">
         <Row md={7}>
           <Col>ID</Col>
           <Col>Name</Col>
@@ -40,6 +43,7 @@ function Table() {
           <Col>Age</Col>
           <Col>City</Col>
           <Col>Profile Picture</Col>
+          <Col>Actions</Col>
         </Row>
 
         {/* ----------Mapping the value from the api and adding it dynamicaly to the table */}
@@ -57,10 +61,18 @@ function Table() {
               <Col>
                 <img src={item.image} alt="" className="profileImg" />
               </Col>
+              <Col className="d-flex gap-2 ">
+                <Button variant="outline-success">
+                  <i class="bi bi-pencil"></i>
+                </Button>{" "}
+                <Button variant="outline-danger">
+                  <i class="bi bi-trash3"></i>
+                </Button>{" "}
+              </Col>
             </Row>
           );
         })}
-      </Container>
+      </div>
     </>
   );
 }

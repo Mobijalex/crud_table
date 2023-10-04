@@ -1,6 +1,6 @@
 import React from "react";
 import "./filter.css";
-import NewBtn from "../../create newBtn/NewBtn";
+import NewBtn from "../../components/create newBtn/NewBtn";
 
 function Filter() {
   return (

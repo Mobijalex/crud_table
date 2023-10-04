@@ -63,10 +63,10 @@ function NewBtn() {
               {" "}
               <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1">
-                  <i class="bi bi-telephone"></i>
+                  <i class="bi bi-calendar"></i>
                 </InputGroup.Text>
                 <Form.Control
-                  placeholder="Phone:No"
+                  placeholder="Age..."
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                 />
@@ -85,6 +85,22 @@ function NewBtn() {
                 />
               </InputGroup>
             </Col>
+          </Row>{" "}
+          <Row>
+            <Col>
+              {" "}
+              <InputGroup className="mb-3">
+                <InputGroup.Text id="basic-addon1">
+                  <i class="bi bi-telephone"></i>
+                </InputGroup.Text>
+                <Form.Control
+                  placeholder="Phone:No"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+              </InputGroup>
+            </Col>
+            <Col></Col>
           </Row>{" "}
         </Modal.Body>
         <Modal.Footer>

@@ -20,14 +20,12 @@
   width: 50px;
 }
 
-/* Style even rows */
 .tableRow:nth-child(even) {
-  background-color: lightgray; /* Change the background color for even rows */
+  background-color: rgb(246, 246, 246);
 }
 
-/* Style odd rows */
 .tableRow:nth-child(odd) {
-  background-color: white; /* Change the background color for odd rows */
+  background-color: white;
 }
 
 .row {
