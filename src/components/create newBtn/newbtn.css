@@ -8,3 +8,7 @@
   border-radius: 3px;
   box-shadow: 10px 10px 14px -13px rgba(0, 0, 0, 0.75);
 }
+
+.update {
+  background-color: rgb(53, 48, 72);
+}

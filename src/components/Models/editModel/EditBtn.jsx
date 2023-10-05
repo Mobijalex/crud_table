@@ -1,33 +1,24 @@
 import React from "react";
-import "../create newBtn/newbtn.css";
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import "../editModel/editbtn.css";
 
-function NewBtn() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+function EditBtn({ showEditModel, handleCloseEditModel, handleShow }) {
   return (
     <div>
-      {" "}
-      <button className="addBtn" onClick={handleShow}>
-        ADD NEW
-      </button>
       <Modal
-        show={show}
-        onHide={handleClose}
+        show={showEditModel}
+        onHide={handleCloseEditModel}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         size="lg"
       >
         <Modal.Header closeButton>
-          <Modal.Title>ADD NEW DATA</Modal.Title>
+          <Modal.Title>EDIT DATA</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
@@ -104,11 +95,15 @@ function NewBtn() {
           </Row>{" "}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleCloseEditModel}>
             Close
           </Button>
-          <Button className="update" variant="primary" onClick={handleClose}>
-            Update
+          <Button
+            className="submit"
+            variant="primary"
+            onClick={handleCloseEditModel}
+          >
+            Submit
           </Button>
         </Modal.Footer>
       </Modal>
@@ -116,4 +111,4 @@ function NewBtn() {
   );
 }
 
-export default NewBtn;
+export default EditBtn;

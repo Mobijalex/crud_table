@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./filter.css";
 import NewBtn from "../../components/create newBtn/NewBtn";
 
-function Filter() {
+function Filter({ demoValue }) {
+  console.log("demoValue,", demoValue);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    const filtered = demoValue.filter((item) =>
+      item.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    setFilteredData(filtered);
+  }, [searchInput, demoValue]);
+
   return (
     <>
       <div className="filter">
@@ -12,6 +24,8 @@ function Filter() {
             list="browsers"
             name="browser"
             placeholder="Search Name..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
           <datalist id="browsers">
             <option value="sarath" />
