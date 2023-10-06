@@ -2,18 +2,23 @@ import React, { useState, useEffect } from "react";
 import "./filter.css";
 import NewBtn from "../../components/create newBtn/NewBtn";
 
-function Filter({ demoValue }) {
-  console.log("demoValue,", demoValue);
-  const [searchInput, setSearchInput] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
+function Filter({ demoValue, handleFilterChange }) {
+  // console.log("demoValue,", demoValue);
+  const [nameInput, setNameInput] = useState("");
 
-  useEffect(() => {
-    const filtered = demoValue.filter((item) =>
-      item.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
+  const handleChangeName = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    setNameInput(searchTerm);
 
-    setFilteredData(filtered);
-  }, [searchInput, demoValue]);
+    // Filter the data based on the search term
+    const filteredResults = demoValue.filter((item) => {
+      if (typeof item === "") {
+        return item.toLowerCase().includes(searchTerm);
+      }
+      return false;
+    });
+    handleFilterChange(filteredResults);
+  };
 
   return (
     <>
@@ -21,17 +26,12 @@ function Filter({ demoValue }) {
         <div className="dropdown">
           <input
             className="inputbox"
-            list="browsers"
+            type="text"
             name="browser"
             placeholder="Search Name..."
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            value={nameInput}
+            onChange={handleChangeName}
           />
-          <datalist id="browsers">
-            <option value="sarath" />
-            <option value="Monu" />
-            <option value="jino" />
-          </datalist>
         </div>
         <div className="dropdown">
           <input

@@ -5,17 +5,24 @@ import Col from "react-bootstrap/Col";
 import "./Table.css";
 import EditBtn from "../Models/editModel/EditBtn";
 import DeletModal from "../Models/deletModel/DeletModal";
-import Filter from "../filter/Filter";
+
+import "../filter/filter.css";
+import NewBtn from "../../components/create newBtn/NewBtn";
 
 function Table() {
   const [demoValue, setDemoValue] = useState([]);
+  const [showEditModel, setShowEditModel] = useState(false);
+  const [showDeleteModel, setShowDeleteModel] = useState(false);
+  const [filteredData, setFilteredData] = useState({
+    firstName: "",
+  });
 
   // ---------Calling the fuction in useeffect for getting the data
 
   useEffect(() => {
     // console.log("im worked");
     fetchData();
-  }, []);
+  }, [filteredData]);
 
   // ---------Fetching dummy data from an api
 
@@ -35,18 +42,91 @@ function Table() {
 
   // -=-=-=-=-=-=-=-=-=-=-----For edit button
 
-  const [showEditModel, setShowEditModel] = useState(false);
-  const [showDeleteModel, setShowDeleteModel] = useState(false);
-
+  // Modal Open & Hide Functionality
   const handleCloseEditModel = () => setShowEditModel(false);
   const handleOpenEditModel = () => setShowEditModel(true);
 
   const handleCloseDeleteModel = () => setShowDeleteModel(false);
   const handleShowDeleteModel = () => setShowDeleteModel(true);
 
+  // Filter Functionality
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilteredData({ ...filteredData, [name]: value });
+  };
+
+  const filterData = () => {
+    return demoValue.filter((item) => {
+      // Convert both the search text and item's firstName to lowercase for a case-insensitive search
+      const searchFirstName = filteredData.firstName.toLowerCase();
+      const itemFirstName = item.firstName.toLowerCase();
+
+      // Check if the item's firstName contains the search text
+      return itemFirstName.includes(searchFirstName);
+    });
+  };
+
+  console.log("filteredData", filteredData);
+
   return (
     <>
-      <Filter demoValue={demoValue} />
+      <div className="filter">
+        <div className="dropdown">
+          <input
+            className="inputbox"
+            type="text"
+            name="firstName"
+            placeholder="Search Name..."
+            value={filteredData.firstName}
+            onChange={handleFilterChange}
+          />
+          <datalist id="dataName"></datalist>
+        </div>
+        <div className="dropdown">
+          <input
+            className="inputbox"
+            list="browsers"
+            name="browser"
+            placeholder="Search Email..."
+          />
+          <datalist id="browsers">
+            <option value="sarath" />
+            <option value="Monu" />
+            <option value="jino" />
+          </datalist>
+        </div>
+        <div className="dropdown">
+          <input
+            className="inputbox"
+            list="browsers"
+            name="browser"
+            placeholder="Search Number..."
+          />
+          <datalist id="browsers">
+            <option value="sarath" />
+            <option value="Monu" />
+            <option value="jino" />
+          </datalist>
+        </div>
+        <div className="dropdown">
+          <input
+            className="inputbox"
+            list="browsers"
+            name="browser"
+            placeholder="Search City..."
+          />
+          <datalist id="browsers">
+            <option value="sarath" />
+            <option value="Monu" />
+            <option value="jino" />
+          </datalist>
+        </div>
+
+        <div>
+          <NewBtn />
+        </div>
+      </div>
+
       <div className="tableContainer">
         <Row md={7}>
           <Col>ID</Col>
@@ -60,7 +140,7 @@ function Table() {
         </Row>
 
         {/* --------------------Mapping the value from the api and adding it dynamicaly to the table */}
-        {demoValue.map((item) => {
+        {filterData().map((item) => {
           return (
             <Row key={item.id} md={7} className="tableRow">
               <Col>{item.id}</Col>
