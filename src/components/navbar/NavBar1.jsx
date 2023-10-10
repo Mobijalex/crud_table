@@ -10,11 +10,11 @@ function NavBar1() {
       <Navbar data-bs-theme="dark">
         <Container>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+
+            <Nav.Link href="/table">Table</Nav.Link>
           </Nav>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="/">Navbar</Navbar.Brand>
         </Container>
       </Navbar>
     </div>

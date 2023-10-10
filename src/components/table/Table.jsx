@@ -9,6 +9,7 @@ import DeletModal from "../Models/deletModel/DeletModal";
 import "../filter/filter.css";
 import NewBtn from "../../components/create newBtn/NewBtn";
 import NotFound from "../notFound/NotFound";
+import NavBar1 from "../navbar/NavBar1";
 
 function Table() {
   const [demoValue, setDemoValue] = useState([]);
@@ -89,6 +90,7 @@ function Table() {
 
   return (
     <>
+      <NavBar1 />
       <div className="filter">
         <div className="dropdown">
           <input

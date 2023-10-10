@@ -1,15 +1,17 @@
 import Table from "./components/table/Table";
 import "./App.css";
-import Filter from "./components/filter/Filter";
-import NavBar1 from "./components/navbar/NavBar1";
+import Home from "./components/Home/Home";
+import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <NavBar1 />
-
-      <Table />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" exact Component={Home} />
+        <Route path="/table" Component={Table} />
+      </Routes>
+    </Router>
   );
 }
 
