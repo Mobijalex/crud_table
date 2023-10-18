@@ -33,9 +33,9 @@ function Table() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://dummyjson.com/users");
+      const response = await fetch("http://localhost:9000/Crud");
       const jsonData = await response.json();
-      setDemoValue(jsonData.users);
+      setDemoValue(jsonData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -43,7 +43,7 @@ function Table() {
 
   // ----------loging the useState for checking the fetched data
 
-  // console.log("demoValue", demoValue);
+  console.log("demoValue----------------------", demoValue);
 
   // -=-=-=-=-=-=-=-=-=-=-----For edit button
 
@@ -74,7 +74,7 @@ function Table() {
       const itemNumber = item.phone.toLowerCase();
 
       const searchCity = filteredData.city.toLowerCase();
-      const itemCity = item.address.city.toLowerCase();
+      const itemCity = item.city.toLowerCase();
 
       // Check if the item's firstName contains the search text
       return (
@@ -160,7 +160,7 @@ function Table() {
           <NotFound />
         ) : (
           filterData().map((item) => {
-            console.log("item", item);
+            console.log("item---------------------", item);
             return (
               <Row key={item.id} md={7} className="tableRow">
                 <Col>{item.id}</Col>
@@ -170,7 +170,7 @@ function Table() {
                 <Col>{item.email}</Col>
                 <Col>{item.phone}</Col>
                 <Col>{item.age}</Col>
-                <Col>{item.address.city}</Col>
+                <Col>{item.city}</Col>
                 <Col>
                   <img src={item.image} alt="" className="profileImg" />
                 </Col>
@@ -195,6 +195,7 @@ function Table() {
           })
         )}
       </div>
+
       <EditBtn
         showEditModel={showEditModel}
         handleCloseEditModel={handleCloseEditModel}

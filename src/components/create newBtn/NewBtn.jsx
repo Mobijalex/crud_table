@@ -100,7 +100,11 @@ function NewBtn() {
                 />
               </InputGroup>
             </Col>
-            <Col></Col>
+            <Col>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Control type="file" />
+              </Form.Group>
+            </Col>
           </Row>{" "}
         </Modal.Body>
         <Modal.Footer>
