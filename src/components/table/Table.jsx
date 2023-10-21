@@ -33,7 +33,7 @@ function Table() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:9000/Crud");
+      const response = await fetch("http://localhost:9000/Crud ");
       const jsonData = await response.json();
       setDemoValue(jsonData);
     } catch (error) {
@@ -43,16 +43,26 @@ function Table() {
 
   // ----------loging the useState for checking the fetched data
 
-  console.log("demoValue----------------------", demoValue);
+  // console.log("demoValue----------------------", demoValue);
 
   // -=-=-=-=-=-=-=-=-=-=-----For edit button
 
   // Modal Open & Hide Functionality
   const handleCloseEditModel = () => setShowEditModel(false);
-  const handleOpenEditModel = () => setShowEditModel(true);
+
+  const handleOpenEditModel = (item) => {
+    setdataToEdit(item);
+    setShowEditModel(true);
+  };
 
   const handleCloseDeleteModel = () => setShowDeleteModel(false);
   const handleShowDeleteModel = () => setShowDeleteModel(true);
+
+  const [dataToEdit, setdataToEdit] = useState(null);
+
+  const handleEdit = (itm) => {
+    setdataToEdit(itm);
+  };
 
   // Filter Functionality
   const handleFilterChange = (e) => {
@@ -65,23 +75,40 @@ function Table() {
 
   const filterData = () => {
     return demoValue.filter((item) => {
-      // Convert both the search text and item's firstName to lowercase for a case-insensitive search
-      const searchFirstName = filteredData.firstName.toLowerCase();
-      const itemFirstName = item.firstName.toLowerCase();
-      const searchEmail = filteredData.email.toLowerCase();
-      const itemEmail = item.email.toLowerCase();
-      const searchNumber = filteredData.phone.toLowerCase();
-      const itemNumber = item.phone.toLowerCase();
+      // Ensure filteredData is defined
+      if (!filteredData) {
+        return false;
+      }
 
-      const searchCity = filteredData.city.toLowerCase();
-      const itemCity = item.city.toLowerCase();
+      // Check if the properties are defined before trying to access them
+      const searchFirstName = filteredData.firstName
+        ? filteredData.firstName.toLowerCase()
+        : "";
+      const itemFirstName = item.firstName ? item.firstName.toLowerCase() : "";
 
-      // Check if the item's firstName contains the search text
+      const searchBloodGroup = filteredData.bloodGroup
+        ? filteredData.bloodGroup.toLowerCase()
+        : "";
+      const itemBloodGroup = item.bloodGroup
+        ? item.bloodGroup.toLowerCase()
+        : "";
+
+      // Make sure age is a number before accessing
+      const searchAge = parseInt(filteredData.age, 10);
+      const itemAge = item.age;
+
+      const ageMatch = isNaN(searchAge) || itemAge === searchAge;
+
+      const searchPlace = filteredData.city
+        ? filteredData.city.toLowerCase()
+        : "";
+      const itemPlace = item.city ? item.city.toLowerCase() : "";
+
       return (
         itemFirstName.includes(searchFirstName) &&
-        itemEmail.includes(searchEmail) &&
-        itemNumber.includes(searchNumber) &&
-        itemCity.includes(searchCity)
+        itemBloodGroup.includes(searchBloodGroup) &&
+        ageMatch &&
+        itemPlace.includes(searchPlace)
       );
     });
   };
@@ -160,7 +187,7 @@ function Table() {
           <NotFound />
         ) : (
           filterData().map((item) => {
-            console.log("item---------------------", item);
+            // console.log("item---------------------", item);
             return (
               <Row key={item.id} md={7} className="tableRow">
                 <Col>{item.id}</Col>
@@ -178,7 +205,7 @@ function Table() {
                   {/* -------------------------------------Edit model srction starts here */}
                   <Button
                     variant="outline-success"
-                    onClick={handleOpenEditModel}
+                    onClick={() => handleOpenEditModel(item)}
                   >
                     <i class="bi bi-pencil"></i>
                   </Button>
@@ -200,6 +227,8 @@ function Table() {
         showEditModel={showEditModel}
         handleCloseEditModel={handleCloseEditModel}
         handleOpenEditModel={handleOpenEditModel}
+        dataToEdit={dataToEdit}
+        handleEdit={handleEdit}
       />
       <DeletModal
         showDeleteModel={showDeleteModel}
