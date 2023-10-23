@@ -5,6 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../editModel/editbtn.css";
+import { useState } from "react";
 
 function EditBtn({
   showEditModel,
@@ -18,9 +19,58 @@ function EditBtn({
     handleEdit({ ...dataToEdit, [name]: value });
   };
 
-  const updateData = () => {
-    console.log(dataToEdit.firstName);
+  const updateData = async (e) => {
+    e.preventDefault();
+    // console.log(
+    //   dataToEdit.id,
+    //   dataToEdit.firstName,
+    //   dataToEdit.email,
+    //   dataToEdit.age,
+    //   dataToEdit.city,
+    //   dataToEdit.phone
+    // );
+    try {
+      await fetch(`http://localhost:9000/Crud/${dataToEdit._id}`, {
+        method: "PUT",
+
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          id: dataToEdit.id,
+          firstName: dataToEdit.firstName,
+          email: dataToEdit.email,
+          age: dataToEdit.age,
+          city: dataToEdit.city,
+          phone: dataToEdit.phone,
+          image: image,
+        }),
+      }).then((response) => {
+        if (response.status === 200) {
+          handleCloseEditModel();
+          window.location.reload();
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
+  // ====================converting the image to a base64======================================================
+  const [image, setImage] = useState("");
+
+  function convertToBase64(e) {
+    console.log(e);
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      console.log(reader.result);
+      setImage(reader.result);
+    };
+    reader.onerror = (error) => {
+      console.log("error", error);
+    };
+  }
+  // ========================================================================================================
 
   return (
     <div>
@@ -137,9 +187,18 @@ function EditBtn({
           </Row>{" "}
           <Row>
             <Col>
-              <Form.Group controlId="formFile" className="mb-3">
-                <Form.Control type="file" />
-              </Form.Group>
+              <form
+                encType="multipart/form-data"
+                action="/upload"
+                method="post"
+              >
+                <input type="file" name="image" onChange={convertToBase64} />
+                {image == "" || image == null ? (
+                  ""
+                ) : (
+                  <img width={100} height={100} src={image} />
+                )}
+              </form>
             </Col>
           </Row>{" "}
         </Modal.Body>
@@ -147,7 +206,7 @@ function EditBtn({
           <Button variant="secondary" onClick={handleCloseEditModel}>
             Close
           </Button>
-          <Button className="submit" variant="primary" onClick={updateData}>
+          <Button className="update" variant="primary" onClick={updateData}>
             update
           </Button>
         </Modal.Footer>

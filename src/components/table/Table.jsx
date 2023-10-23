@@ -234,6 +234,8 @@ function Table() {
         showDeleteModel={showDeleteModel}
         handleCloseDeleteModel={handleCloseDeleteModel}
         handleShowDeleteModel={handleShowDeleteModel}
+        dataToEdit={dataToEdit}
+        handleEdit={handleEdit}
       />
     </>
   );
