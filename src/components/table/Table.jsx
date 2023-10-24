@@ -55,6 +55,11 @@ function Table() {
     setShowEditModel(true);
   };
 
+  const handleDeletModel = (item) => {
+    setdataToEdit(item);
+    setShowDeleteModel(true);
+  };
+
   const handleCloseDeleteModel = () => setShowDeleteModel(false);
   const handleShowDeleteModel = () => setShowDeleteModel(true);
 
@@ -112,6 +117,8 @@ function Table() {
       );
     });
   };
+
+  const reverseData = filterData().reverse();
 
   // console.log("filteredData", filteredData);
 
@@ -186,7 +193,7 @@ function Table() {
         {filterData().length === 0 ? (
           <NotFound />
         ) : (
-          filterData().map((item) => {
+          reverseData.map((item) => {
             // console.log("item---------------------", item);
             return (
               <Row key={item.id} md={7} className="tableRow">
@@ -212,7 +219,7 @@ function Table() {
                   {/* --------------------------------Edit model srction ends here */}
                   <Button
                     variant="outline-danger"
-                    onClick={handleShowDeleteModel}
+                    onClick={() => handleDeletModel(item)}
                   >
                     <i class="bi bi-trash3"></i>
                   </Button>{" "}
@@ -235,7 +242,6 @@ function Table() {
         handleCloseDeleteModel={handleCloseDeleteModel}
         handleShowDeleteModel={handleShowDeleteModel}
         dataToEdit={dataToEdit}
-        handleEdit={handleEdit}
       />
     </>
   );

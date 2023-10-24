@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "../deletModel/deletModal.css";
@@ -8,19 +7,15 @@ function DeletModal({
   handleCloseDeleteModel,
   handleShow,
   dataToEdit,
-  handleEdit,
 }) {
   // ===================================================================
 
   const deleteData = async (e) => {
-    const { name, value } = e.target;
-    handleEdit({ ...dataToEdit, [name]: value });
-    e.preventDefault();
     try {
       await fetch(`http://localhost:9000/Crud/${dataToEdit._id}`, {
         method: "DELETE",
         headers: {
-          "content-type": "application/json",
+          "Content-Type": "application/json",
         },
       }).then((response) => {
         if (response.status === 200) {
@@ -29,9 +24,11 @@ function DeletModal({
         }
       });
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
     }
   };
+
+  console.log(dataToEdit);
   // ===========================================================================
 
   return (

@@ -19,7 +19,7 @@ function NewBtn() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
+    // console.log(formData);
   };
 
   const handleSubmit = async () => {
@@ -181,10 +181,10 @@ function NewBtn() {
                 method="post"
               >
                 <input type="file" name="image" onChange={convertToBase64} />
-                {image == "" || image == null ? (
+                {image === "" || image == null ? (
                   ""
                 ) : (
-                  <img width={100} height={100} src={image} />
+                  <img width={100} height={100} src={image} alt="" />
                 )}
               </form>
             </Col>
